@@ -11,8 +11,8 @@ namespace ZNMS.Registered.Web
     /// </summary>
     public class ChangeInfo : IHttpHandler
     {
-        string imei = "";
-        int xmbh = 0;
+        string devImei = "";
+        string projNumber = "";
         DevInfo registeredInfo = null;
 
         public void ProcessRequest(HttpContext context)
@@ -21,31 +21,34 @@ namespace ZNMS.Registered.Web
             BLL.DevInfoBll registeredInfoBll = new BLL.DevInfoBll();
             try
             {
-                imei = context.Request.Form["myImei"].Trim();
-                xmbh = Convert.ToInt32(context.Request.Form["myXMBH"]);
-                registeredInfo = registeredInfoBll.GetRegisteredInfo(imei, xmbh);
+                devImei = context.Request.Form["Dev_Imei_Web"].Trim();
+                projNumber = context.Request.Form["Proj_Number_Web"].Trim();
+                registeredInfo = registeredInfoBll.GetRegisteredInfo(devImei, projNumber);
 
                 if (registeredInfo != null)
                 {
-                    registeredInfo.XMBH = Convert.ToInt32(context.Request.Form["myXMBH"]);
-                    registeredInfo.SBXMMC = context.Request.Form["mySBXMMC"];
-                    registeredInfo.XMDZ = context.Request.Form["myXMDZ"];
-                    registeredInfo.DJRLXFS = context.Request.Form["myDJRLXFS"];
-                    registeredInfo.AZRY = context.Request.Form["myAZRY"];
-                    registeredInfo.AZSJ = DateTime.Now;
-                    registeredInfo.AZDW = context.Request.Form["myAZDW"];
-                    registeredInfo.SBLX = context.Request.Form["mySBLX"];
-                    registeredInfo.SBBH = context.Request.Form["mySBBH"];
-                    registeredInfo.IMEI = context.Request.Form["myIMEI"];
-                    registeredInfo.CCID = context.Request.Form["myCCID"];
-                    registeredInfo.NBKH = context.Request.Form["myNBKH"];
-                    registeredInfo.NBYXQ = context.Request.Form["myNBYXQ"];
-                    registeredInfo.EX1 = context.Request.Form["myEX1"];
-                    registeredInfo.EX2 = context.Request.Form["myEX2"];
-                    registeredInfo.EX3 = context.Request.Form["myEX3"];
-                    registeredInfo.BZ = context.Request.Form["myBZ"];
+                    registeredInfo.Proj_Name = context.Request.Form["Proj_Name_Web"];
+                    registeredInfo.Proj_Number = context.Request.Form["Proj_Number_Web"];
+                    registeredInfo.Proj_Address = context.Request.Form["Proj_Address_Web"];
+                    registeredInfo.Proj_Link = context.Request.Form["Proj_Link_Web"];
+                    registeredInfo.Install_Man = context.Request.Form["Install_Man_Web"];
+                    registeredInfo.Install_Time = DateTime.Now;
+                    registeredInfo.Install_Address = context.Request.Form["Install_Address_Web"];
+                    registeredInfo.Dev_Type = context.Request.Form["Dev_Type_Web"];
+                    registeredInfo.Dev_Factory = context.Request.Form["Dev_Factory_Web"];
+                    registeredInfo.Dev_Brand = context.Request.Form["Dev_Brand_Web"];
+                    registeredInfo.Dev_Model = context.Request.Form["Dev_Model_Web"];
+                    registeredInfo.Dev_Price = context.Request.Form["Dev_Price_Web"];
+                    registeredInfo.Dev_Number = context.Request.Form["Dev_Number_Web"];
+                    registeredInfo.Dev_Imei = context.Request.Form["Dev_Imei_Web"];
+                    registeredInfo.Dev_Ccid = context.Request.Form["Dev_Ccid_Web"];
+                    registeredInfo.Dev_NB_Number = context.Request.Form["Dev_NB_Number_Web"];
+                    registeredInfo.Dev_NB_ExpirationDate = context.Request.Form["Dev_NB_ExpirationDate_Web"];
+                    registeredInfo.Dev_Ex1 = string.Empty;
+                    registeredInfo.Dev_Ex2 = string.Empty;
+                    registeredInfo.Dev_Ex3 = string.Empty;
+                    registeredInfo.Remarks = context.Request.Form["Remarks_Web"];
 
-                    string a = registeredInfo.ID.ToString();
                     if (registeredInfoBll.UpdateRegisteredInfo(registeredInfo))
                     {
                         Alert("修改成功！！");
@@ -60,14 +63,12 @@ namespace ZNMS.Registered.Web
                     Alert("修改失败！！");
                 }
             }
-            catch
-            { Alert("修改失败！！"); }
+            catch { Alert("修改失败！！"); }
         }
 
         public void Alert(string message)
         {
-            //ResponseScript("alert('" + message + "');window.location = 'Registered.aspx?IMEI=" + imei + "'&XMBH=" + xmbh + "';");
-            ResponseScript("alert('" + message + "');window.location = 'Registered.aspx?IMEI=" + imei + "&XMBH=" + xmbh + "';");
+            ResponseScript("alert('" + message + "');window.location = 'Registered.aspx?DevImei=" + devImei + "&ProjNumber=" + projNumber + "';");
         }
         public void ResponseScript(string script)
         {

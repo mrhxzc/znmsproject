@@ -18,49 +18,53 @@ namespace ZNMS.Registered.Web
             BLL.DevInfoBll registeredInfoBll = new BLL.DevInfoBll();
             registeredInfo = new DevInfo();
 
-            string imei = Request.QueryString["IMEI"];
-            int xmbh = Convert.ToInt32(Request.QueryString["XMBH"]);
+            string devImei = Request.QueryString["devImei"];
+            string projNumber = Request.QueryString["ProjNumber"];
 
-            registeredInfo.IMEI = imei;
-            registeredInfo.XMBH = xmbh;
+            registeredInfo.Dev_Imei = devImei;
+            registeredInfo.Proj_Number = projNumber;
 
             if (!IsPostBack)
             {
-                registeredInfo.AZSJ = DateTime.Now;
+                registeredInfo.Install_Time = DateTime.Now;
 
-                if (imei != null)
+                if (devImei != null)
                 {
-                    if (registeredInfoBll.GetRegisteredInfo(imei, xmbh) != null)
+                    if (registeredInfoBll.GetRegisteredInfo(devImei, projNumber) != null)
                     {
-                        registeredInfo = registeredInfoBll.GetRegisteredInfo(imei, xmbh);
+                        registeredInfo = registeredInfoBll.GetRegisteredInfo(devImei, projNumber);
                     }
                 }
             }
             else
             {
-                if (imei != null)
+                if (devImei != null)
                 {
                     try
                     {
-                        if (!registeredInfoBll.IsGetRegisteredInfo(imei))
+                        if (!registeredInfoBll.IsGetRegisteredInfo(devImei))
                         {
-                            registeredInfo.XMBH = Convert.ToInt32(Request.Form["myXMBH"]);
-                            registeredInfo.SBXMMC = Request.Form["mySBXMMC"];
-                            registeredInfo.XMDZ = Request.Form["myXMDZ"];
-                            registeredInfo.DJRLXFS = Request.Form["myDJRLXFS"];
-                            registeredInfo.AZRY = Request.Form["myAZRY"];
-                            registeredInfo.AZSJ = DateTime.Now;
-                            registeredInfo.AZDW = Request.Form["myAZDW"];
-                            registeredInfo.SBLX = Request.Form["mySBLX"];
-                            registeredInfo.SBBH = Request.Form["mySBBH"];
-                            registeredInfo.IMEI = Request.Form["myIMEI"];
-                            registeredInfo.CCID = Request.Form["myCCID"];
-                            registeredInfo.NBKH = Request.Form["myNBKH"];
-                            registeredInfo.NBYXQ = Request.Form["myNBYXQ"];
-                            registeredInfo.EX1 = Request.Form["myEX1"];
-                            registeredInfo.EX2 = Request.Form["myEX2"];
-                            registeredInfo.EX3 = Request.Form["myEX3"];
-                            registeredInfo.BZ = Request.Form["myBZ"];
+                            registeredInfo.Proj_Name = Request.Form["Proj_Name_Web"];
+                            registeredInfo.Proj_Number = Request.Form["Proj_Number_Web"];
+                            registeredInfo.Proj_Address = Request.Form["Proj_Address_Web"];
+                            registeredInfo.Proj_Link = Request.Form["Proj_Link_Web"];
+                            registeredInfo.Install_Man = Request.Form["Install_Man_Web"];
+                            registeredInfo.Install_Time = DateTime.Now;
+                            registeredInfo.Install_Address = Request.Form["Install_Address_Web"];
+                            registeredInfo.Dev_Type = Request.Form["Dev_Type_Web"];
+                            registeredInfo.Dev_Factory = Request.Form["Dev_Factory_Web"];
+                            registeredInfo.Dev_Brand = Request.Form["Dev_Brand_Web"];
+                            registeredInfo.Dev_Model = Request.Form["Dev_Model_Web"];
+                            registeredInfo.Dev_Price = Request.Form["Dev_Price_Web"];
+                            registeredInfo.Dev_Number = Request.Form["Dev_Number_Web"];
+                            registeredInfo.Dev_Imei = Request.Form["Dev_Imei_Web"];
+                            registeredInfo.Dev_Ccid = Request.Form["Dev_Ccid_Web"];
+                            registeredInfo.Dev_NB_Number = Request.Form["Dev_NB_Number_Web"];
+                            registeredInfo.Dev_NB_ExpirationDate = Request.Form["Dev_NB_ExpirationDate_Web"];
+                            registeredInfo.Dev_Ex1 = string.Empty;
+                            registeredInfo.Dev_Ex2 = string.Empty;
+                            registeredInfo.Dev_Ex3 = string.Empty;
+                            registeredInfo.Remarks = Request.Form["Remarks_Web"];
 
                             if (registeredInfoBll.InsertRegisteredInfo(registeredInfo))
                             {
@@ -73,11 +77,11 @@ namespace ZNMS.Registered.Web
                         }
                         else
                         {
-                            registeredInfo = registeredInfoBll.GetRegisteredInfo(imei, xmbh);
+                            registeredInfo = registeredInfoBll.GetRegisteredInfo(devImei, projNumber);
                             MsgBox("已注册！！");
                         }
                     }
-                    catch { MsgBox("注册失败！！"); }
+                    catch(Exception EX) { MsgBox("注册失败！！"); }
                 }
                 else
                 {

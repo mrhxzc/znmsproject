@@ -14,22 +14,22 @@ namespace ZNMS.BLL
         /// <summary>
         /// 获取一条记录
         /// </summary>
-        /// <param name="imei"></param>
+        /// <param name="devImei"></param>
         /// <returns></returns>
-        public DevInfo GetRegisteredInfo(string imei, int xmbh)
+        public DevInfo GetRegisteredInfo(string devImei, string projNumber)
         {
-            return devInfoDal.GetInfo(imei, xmbh);
+            return devInfoDal.GetInfo(devImei, projNumber);
         }
 
         /// <summary>
         /// 判断是否查询到数据
         /// </summary>
-        /// <param name="imei"></param>
+        /// <param name="devImei"></param>
         /// <returns></returns>
-        public bool IsGetRegisteredInfo(string imei)
+        public bool IsGetRegisteredInfo(string devImei)
         {
             DevInfo registeredInfo = null;
-            registeredInfo = devInfoDal.GetInfo(imei);
+            registeredInfo = devInfoDal.GetInfo(devImei);
             if (registeredInfo != null)
             {
                 return true;
