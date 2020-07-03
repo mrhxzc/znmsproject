@@ -10,6 +10,7 @@ namespace ZNMS.Registered.Web
 {
     public partial class Registered : System.Web.UI.Page
     {
+        public bool ExistImei = false;
         public DevInfo  registeredInfo { get; set; }
         public string msg { get; set; }
 
@@ -30,6 +31,18 @@ namespace ZNMS.Registered.Web
 
                 if (devImei != null)
                 {
+                    ExistImei = registeredInfoBll.IsGetRegisteredInfo(devImei);
+                    //if (registeredInfoBll.IsGetRegisteredInfo(devImei))  //判断是否能查询到设备
+                    //{
+                    //    btn_change.Visible = true;
+                    //    btn_Registered.Visible = false;
+                    //}
+                    //else
+                    //{
+                    //    btn_change.Visible = false;
+                    //    btn_Registered.Visible = true;
+                    //}
+
                     if (registeredInfoBll.GetRegisteredInfo(devImei, projNumber) != null)
                     {
                         registeredInfo = registeredInfoBll.GetRegisteredInfo(devImei, projNumber);
@@ -74,6 +87,7 @@ namespace ZNMS.Registered.Web
                             {
                                 MsgBox("注册失败！！");
                             }
+                            //base.Response.Redirect(Request.Url.ToString(), true);
                         }
                         else
                         {
@@ -81,7 +95,7 @@ namespace ZNMS.Registered.Web
                             MsgBox("已注册！！");
                         }
                     }
-                    catch(Exception EX) { MsgBox("注册失败！！"); }
+                    catch { MsgBox("注册失败！！"); }
                 }
                 else
                 {
@@ -97,8 +111,8 @@ namespace ZNMS.Registered.Web
         /// <param name="msg"></param>
         private void MsgBox(string msg)
         {
-            string strScript = "<script language='Javascript'>alert('" + msg + "');</script>";
-            Page.RegisterStartupScript("alert", strScript);
+            Page.RegisterStartupScript("msg", "<script>alert('" + msg + "');window.location.href='" + Request.Url.ToString() + "'</script>");
+
         }
     }
 }

@@ -10,20 +10,54 @@
        
     <script src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
-        function changeInfo() {
+        $(function () {
+            var devStatus = '<%= registeredInfo.Dev_Ex1 %>';
+            var existImei = '<%= ExistImei %>';
+            if (existImei == 'True') {
+                if (devStatus == '2') {   //表示当前为提交状态
+                    $("#btn_change").hide();
+                    $("#btn_Registered").hide();
+                    $("#btn_Acceptance").show();
+                }
+                else if (devStatus == '3') {     //验收完成
+                    $("#btn_change").hide();
+                    $("#btn_Registered").hide();
+                    $("#btn_Acceptance").hide();
+                    $('input').attr("readonly", true);
+                    $('textarea').attr("readonly", true);
+                }
+                else {   //更新安装信息
+                    $("#btn_change").show();
+                    $("#btn_Registered").hide();
+                    $("#btn_Acceptance").hide();
+                }
+            }
+            else {  //注册设备
+                $("#btn_change").hide();
+                $("#btn_Registered").show();
+                $("#btn_Acceptance").hide();
+            }         
+        });
+
+        function changeInfo() {   //修改设备信息
             form1.action = "ChangeInfo.ashx";
             form1.submit();
+        };
+
+        function acceptance() {  //验收
+            form1.action = "Acceptance.ashx";
+            //form1.submit();
         };
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            <table>
+            <table style="margin: 0 auto" >
                 <tr>
                     <td>项目名称</td>
                     <td>
-                        <textarea name="Proj_Name_Web" class="my" rows="3" style="width:172px;"><%=registeredInfo.Proj_Name%></textarea></td>
+                        <textarea id="Proj_Name_Web" name="Proj_Name_Web" rows="3" style="width:172px;" runat="server"><%=registeredInfo.Proj_Name%></textarea></td>
                 </tr>
                 <tr>
                     <td>项目编号</td>
@@ -36,7 +70,7 @@
                         <textarea name="Proj_Address_Web"  rows="3" style="width:172px;" ><%=registeredInfo.Proj_Address%></textarea></td>
                 </tr>
                 <tr>
-                    <td>三方对接人及联系方式</td>
+                    <td>联系方式</td>
                     <td>
                         <textarea name="Proj_Link_Web"  rows="3" style="width:172px;" ><%=registeredInfo.Proj_Link%></textarea></td>
                 </tr>
@@ -111,11 +145,12 @@
                         <textarea name="Remarks_Web"  rows="3" style="width:172px;" ><%=registeredInfo.Remarks%></textarea></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>
-                        <div align='right'>
-                            <input type="button" id="btn_change" value="修改" onclick="changeInfo();" />
-                            <input type="submit" value="注册" />
+                    <td colspan="2">
+                        <div style="text-align:center">
+                            <input type="button" id="btn_change" value="修改" style="width:100%;height:35px;font-size:20px" onclick="changeInfo();" />
+                            <input type="submit" id="btn_Registered" value="注册" style="width:100%;height:35px;font-size:20px"  />
+                            <input type="button" id="btn_Acceptance" value="验收" style="width:100%;height:35px;font-size:20px" onclick="acceptance(); />
+                            
                         </div>
                     </td>
                 </tr>

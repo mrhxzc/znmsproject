@@ -72,6 +72,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Acceptance.ashx.cs">
+      <DependentUpon>Acceptance.ashx</DependentUpon>
+    </Compile>
     <Compile Include="ChangeInfo.ashx.cs">
       <DependentUpon>ChangeInfo.ashx</DependentUpon>
     </Compile>
@@ -86,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ChangeInfo.ashx" />
+    <Content Include="Acceptance.ashx" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Web.Debug.config">
