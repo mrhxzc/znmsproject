@@ -46,7 +46,7 @@
 
         function acceptance() {  //验收
             form1.action = "Acceptance.ashx";
-            //form1.submit();
+            form1.submit();
         };
     </script>
 </head>
@@ -57,7 +57,7 @@
                 <tr>
                     <td>项目名称</td>
                     <td>
-                        <textarea id="Proj_Name_Web" name="Proj_Name_Web" rows="3" style="width:172px;" runat="server"><%=registeredInfo.Proj_Name%></textarea></td>
+                        <textarea id="Proj_Name_Web" name="Proj_Name_Web" rows="3" style="width:172px;resize: none;"><%=registeredInfo.Proj_Name%></textarea></td>
                 </tr>
                 <tr>
                     <td>项目编号</td>
@@ -67,12 +67,12 @@
                 <tr>
                     <td>项目地址</td>
                     <td>
-                        <textarea name="Proj_Address_Web"  rows="3" style="width:172px;" ><%=registeredInfo.Proj_Address%></textarea></td>
+                        <textarea name="Proj_Address_Web"  rows="3" style="width:172px;resize: none;" ><%=registeredInfo.Proj_Address%></textarea></td>
                 </tr>
                 <tr>
                     <td>联系方式</td>
                     <td>
-                        <textarea name="Proj_Link_Web"  rows="3" style="width:172px;" ><%=registeredInfo.Proj_Link%></textarea></td>
+                        <textarea name="Proj_Link_Web"  rows="3" style="width:172px;resize: none;" ><%=registeredInfo.Proj_Link%></textarea></td>
                 </tr>
                 <tr>
                     <td>安装人员</td>
@@ -142,15 +142,14 @@
                 <tr>
                     <td>备注</td>
                     <td>
-                        <textarea name="Remarks_Web"  rows="3" style="width:172px;" ><%=registeredInfo.Remarks%></textarea></td>
+                        <textarea name="Remarks_Web"  rows="3" style="width:172px;resize: none;" ><%=registeredInfo.Remarks%></textarea></td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <div style="text-align:center">
                             <input type="button" id="btn_change" value="修改" style="width:100%;height:35px;font-size:20px" onclick="changeInfo();" />
                             <input type="submit" id="btn_Registered" value="注册" style="width:100%;height:35px;font-size:20px"  />
-                            <input type="button" id="btn_Acceptance" value="验收" style="width:100%;height:35px;font-size:20px" onclick="acceptance(); />
-                            
+                            <input type="button" id="btn_Acceptance" value="验收" style="width:100%;height:35px;font-size:20px" onclick="acceptance();" />
                         </div>
                     </td>
                 </tr>

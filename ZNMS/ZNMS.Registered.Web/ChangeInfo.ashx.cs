@@ -44,7 +44,7 @@ namespace ZNMS.Registered.Web
                     registeredInfo.Dev_Ccid = context.Request.Form["Dev_Ccid_Web"];
                     registeredInfo.Dev_NB_Number = context.Request.Form["Dev_NB_Number_Web"];
                     registeredInfo.Dev_NB_ExpirationDate = context.Request.Form["Dev_NB_ExpirationDate_Web"];
-                    registeredInfo.Dev_Ex1 = string.Empty;
+                    registeredInfo.Dev_Ex1 = "1";  //注册：1，修改：2，验收：3
                     registeredInfo.Dev_Ex2 = string.Empty;
                     registeredInfo.Dev_Ex3 = string.Empty;
                     registeredInfo.Remarks = context.Request.Form["Remarks_Web"];

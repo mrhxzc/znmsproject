@@ -32,16 +32,6 @@ namespace ZNMS.Registered.Web
                 if (devImei != null)
                 {
                     ExistImei = registeredInfoBll.IsGetRegisteredInfo(devImei);
-                    //if (registeredInfoBll.IsGetRegisteredInfo(devImei))  //判断是否能查询到设备
-                    //{
-                    //    btn_change.Visible = true;
-                    //    btn_Registered.Visible = false;
-                    //}
-                    //else
-                    //{
-                    //    btn_change.Visible = false;
-                    //    btn_Registered.Visible = true;
-                    //}
 
                     if (registeredInfoBll.GetRegisteredInfo(devImei, projNumber) != null)
                     {
@@ -74,7 +64,7 @@ namespace ZNMS.Registered.Web
                             registeredInfo.Dev_Ccid = Request.Form["Dev_Ccid_Web"];
                             registeredInfo.Dev_NB_Number = Request.Form["Dev_NB_Number_Web"];
                             registeredInfo.Dev_NB_ExpirationDate = Request.Form["Dev_NB_ExpirationDate_Web"];
-                            registeredInfo.Dev_Ex1 = string.Empty;
+                            registeredInfo.Dev_Ex1 = "1"; //注册：1，修改：2，验收：3
                             registeredInfo.Dev_Ex2 = string.Empty;
                             registeredInfo.Dev_Ex3 = string.Empty;
                             registeredInfo.Remarks = Request.Form["Remarks_Web"];
@@ -87,7 +77,6 @@ namespace ZNMS.Registered.Web
                             {
                                 MsgBox("注册失败！！");
                             }
-                            //base.Response.Redirect(Request.Url.ToString(), true);
                         }
                         else
                         {
@@ -111,8 +100,16 @@ namespace ZNMS.Registered.Web
         /// <param name="msg"></param>
         private void MsgBox(string msg)
         {
-            Page.RegisterStartupScript("msg", "<script>alert('" + msg + "');window.location.href='" + Request.Url.ToString() + "'</script>");
+            //Page.RegisterStartupScript("msg", "<script>alert('" + msg + "');window.location.href='" + Request.Url.ToString() + "'</script>");
+            ResponseScript("alert('" + msg + "');window.location = '" + Request.Url.ToString() + "';");
 
+        }
+
+        public void ResponseScript(string script)
+        {
+            HttpContext.Current.Response.Write("<script type=\"text/javascript\">\n//<![CDATA[\n");
+            HttpContext.Current.Response.Write(script);
+            HttpContext.Current.Response.Write("\n//]]>\n</script>\n");
         }
     }
 }
